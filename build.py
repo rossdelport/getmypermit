@@ -15,7 +15,7 @@ import icons
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 FONTS = "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@400;500;600&display=swap"
-CSS_VER = "2"
+CSS_VER = "4"
 
 
 def esc(s):
@@ -217,13 +217,21 @@ def jsonld(site, page):
                       "serviceType": site["service"], "provider": {"@id": ORG_ID},
                       "areaServed": {"@type": "State", "name": "Western Australia"}, "url": "https://%s/" % site["domain"]})
     wp = {"@type": "WebPage", "@id": u + "#page", "url": u, "name": page["title"], "description": page["desc"],
-          "isPartOf": {"@id": site_id}, "dateModified": UPDATED_ISO, "inLanguage": "en-AU",
+          "isPartOf": {"@id": site_id}, "dateModified": page_iso(page), "inLanguage": "en-AU",
           "primaryImageOfPage": {"@type": "ImageObject", "url": "https://%s/img/%s-1600.webp" % (site["domain"], page.get("img", site["image"]))}}
     graph.append(wp)
+    if page.get("published"):
+        graph.append({"@type": "Article", "@id": u + "#article", "headline": strip(page["h1"]), "description": page["desc"],
+                      "datePublished": page["published"], "dateModified": page_iso(page), "inLanguage": "en-AU",
+                      "author": {"@id": ORG_ID}, "publisher": {"@id": ORG_ID}, "mainEntityOfPage": {"@id": u + "#page"},
+                      "image": "https://%s/img/%s-1600.webp" % (site["domain"], page.get("img", site["image"]))})
     if page["path"] != "index.html":
+        crumbs = [("Home", "https://%s/" % site["domain"])]
+        if page.get("parent"):
+            crumbs.append((page["parent"][1], url(site, page["parent"][0].strip("/") + ".html")))
+        crumbs.append((page.get("crumb", page["h1"]), u))
         graph.append({"@type": "BreadcrumbList", "itemListElement": [
-            {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://%s/" % site["domain"]},
-            {"@type": "ListItem", "position": 2, "name": page.get("crumb", page["h1"]), "item": u}]})
+            {"@type": "ListItem", "position": i, "name": n, "item": h} for i, (n, h) in enumerate(crumbs, 1)]})
     if page.get("faqs"):
         graph.append({"@type": "FAQPage", "@id": u + "#faq", "mainEntity": [
             {"@type": "Question", "name": strip(q), "acceptedAnswer": {"@type": "Answer", "text": strip(a)}}
@@ -273,6 +281,35 @@ def head(site, page):
        site["domain"], FONTS, CSS_VER, site["accent"], jsonld(site, page))
 
 
+def nice_date(iso):
+    import datetime
+    d = datetime.date.fromisoformat(iso)
+    return "%d %s" % (d.day, d.strftime("%B %Y"))
+
+
+def page_iso(page):
+    return page.get("updated") or page.get("published") or UPDATED_ISO
+
+
+def dates_line(page):
+    if page.get("published") and page.get("updated") and page["updated"] != page["published"]:
+        return "Published %s &middot; Last updated %s" % (nice_date(page["published"]), nice_date(page["updated"]))
+    return "Last updated %s" % nice_date(page_iso(page))
+
+
+def parent_crumb(page):
+    if not page.get("parent"):
+        return ""
+    return '<a href="%s">%s</a><span>/</span>' % page["parent"]
+
+
+def sources_block(page):
+    if not page.get("sources"):
+        return ""
+    return '<h2>Sources</h2><ul class="sources">%s</ul>' % "".join(
+        '<li><a href="%s" rel="noopener">%s</a></li>' % (u, t) for t, u in page["sources"])
+
+
 def article(site, page):
     """Inner page: answer first, prose with a sticky quote card, FAQs, then the CTA band."""
     related = "".join('<li><a href="%s">%s</a></li>' % (h, t) for h, t in page.get("related", []))
@@ -282,14 +319,14 @@ def article(site, page):
     return """
 <main id="main">
 <section class="page-hero"><div class="wrap"><div class="ph-inner">
-  <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span>%s</nav>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span>%s%s</nav>
   <p class="eyebrow">%s</p>
   <h1>%s</h1>
   <div class="answer"><span class="label">Short answer</span>%s</div>
-  <p class="updated">Last updated %s</p>
+  <p class="updated">%s</p>
 </div></div></section>
 <section class="content"><div class="wrap">
-  <article class="prose">%s</article>
+  <article class="prose">%s%s</article>
   <aside class="aside"><div class="aside-card">
     <h3>%s</h3><p>%s</p>
     <a class="btn btn-accent" href="%s">Get a fixed-price quote</a>
@@ -299,7 +336,8 @@ def article(site, page):
 </div></section>
 %s
 %s
-</main>""" % (esc(page.get("crumb", page["h1"])), page["eyebrow"], page["h1"], page["answer"], UPDATED, page["body"],
+</main>""" % (parent_crumb(page), esc(page.get("crumb", page["h1"])), page["eyebrow"], page["h1"], page["answer"], dates_line(page),
+             page["body"], sources_block(page),
              site["aside_title"], site["aside_text"], quote_link(site, page.get("permit")), PHONE_TEL, PHONE,
              '<ul class="aside-list">%s</ul>' % related if related else "",
              faqs, band(site, page.get("band_title", site["band_title"]), page.get("band_text", site["band_text"])))
@@ -344,7 +382,7 @@ Allow: /
 
 Sitemap: https://%s/sitemap.xml
 """ % site["domain"])
-    urls = "".join("<url><loc>%s</loc><lastmod>%s</lastmod></url>\n" % (url(site, p["path"]), UPDATED_ISO)
+    urls = "".join("<url><loc>%s</loc><lastmod>%s</lastmod></url>\n" % (url(site, p["path"]), page_iso(p))
                    for p in site["pages"] if not p.get("noindex") and p["path"] != "404.html")
     write(os.path.join(out, "sitemap.xml"),
           '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n%s</urlset>\n' % urls)
