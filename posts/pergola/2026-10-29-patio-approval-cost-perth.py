@@ -23,7 +23,7 @@ BODY = """
 <li><strong>Engineering.</strong> Footing, post and beam details for your wind rating. Usually included by the patio supplier.</li>
 <li><strong>Private building surveyor.</strong> Only if you go certified (BA1). Prices vary, so get a quote.</li>
 <li><strong>Bushfire report (BAL).</strong> Only if your lot is in a bushfire-prone area and the patio is attached to or near the house.</li>
-<li><strong>Verge or street bond.</strong> Some councils, such as Wanneroo, ask for a bond or permit to protect the verge during building.</li>
+<li><strong>Verge or street bond.</strong> Some councils charge to protect the verge during building. The City of Wanneroo, for example, charges a $140 admin fee with every building permit, plus a $2,200 refundable bond if the work is worth $20,000 or more.</li>
 </ul>
 
 <h2>Is a patio permit worth it?</h2>
@@ -46,7 +46,7 @@ FAQS = [
 
 
 def page(S):
-    return {"path": "patio-approval-cost-perth.html", "published": "2026-10-29", "type": "Cost guide", "icon": "price",
+    return {"path": "patio-approval-cost-perth.html", "published": "2026-10-29", "updated": "2026-10-30", "type": "Cost guide", "icon": "price",
             "card": "What council actually charges for a patio permit in 2026-27, with worked examples, plus the other costs to plan for.",
             "title": "Patio Approval Cost in Perth (2026-27 Fees, Worked Examples)",
             "desc": "A patio building permit in Perth usually costs about $183 in council fees and levies in 2026-27. Worked examples, BA1 vs BA2, planning fees and the other costs.",
@@ -57,4 +57,5 @@ def page(S):
             "sources": [("Building Regulations 2012 fees from 1 July 2026 (City of Fremantle)", "https://www.fremantle.wa.gov.au/wp-content/uploads/2025/04/2026-Fees-and-charges-Building-Regulations-2012.pdf"),
                         ("Building approvals and the Building Services Levy (WA Government)", "https://www.wa.gov.au/organisation/building-and-energy/building-approvals"),
                         ("Planning fees 2026-27 (City of Subiaco)", "https://www.subiaco.wa.gov.au/media/kuyntemn/planning-services-fee-schedule-2026-2027.pdf"),
-                        ("Construction Training Fund levy", "https://ctf.wa.gov.au/levy")]}
+                        ("Construction Training Fund levy", "https://ctf.wa.gov.au/levy"),
+                        ("Patios information sheet with verge bond fees, July 2025 (City of Wanneroo)", "https://www.wanneroo.wa.gov.au/download/downloads/id/357/patios_-_information_sheet.pdf")]}
