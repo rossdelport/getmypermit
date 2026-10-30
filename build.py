@@ -16,6 +16,7 @@ import icons
 HERE = os.path.dirname(os.path.abspath(__file__))
 FONTS = "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@400;500;600&display=swap"
 CSS_VER = "4"
+INDEXNOW_KEY = "cb48ff159a951fc036db20a5d5d446f6"
 
 
 def esc(s):
@@ -392,6 +393,10 @@ Sitemap: https://%s/sitemap.xml
             lines.append("- [%s](%s): %s" % (strip(p["h1"]), url(site, p["path"]), p["desc"]))
     lines += ["", "## Contact", "", "- Phone: %s" % PHONE, "- Quote form: %s" % QUOTE_URL, ""]
     write(os.path.join(out, "llms.txt"), "\n".join(lines))
+    write(os.path.join(out, INDEXNOW_KEY + ".txt"), INDEXNOW_KEY)
+    # Runs on GitHub after each push: tells Bing (and so Copilot and ChatGPT search) which pages changed.
+    os.makedirs(os.path.join(out, ".github", "workflows"), exist_ok=True)
+    shutil.copy(os.path.join(HERE, "assets", "indexnow.yml"), os.path.join(out, ".github", "workflows", "indexnow.yml"))
     os.makedirs(os.path.join(out, "assets"), exist_ok=True)
     shutil.copy(os.path.join(HERE, "assets", "site.css"), os.path.join(out, "assets", "site.css"))
     shutil.copy(os.path.join(HERE, "assets", "site.js"), os.path.join(out, "assets", "site.js"))
