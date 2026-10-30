@@ -35,9 +35,10 @@ def get(name, size=22):
 
 
 def mark(accent, size=30):
-    return ('<svg width="%d" height="%d" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#15171c"/>'
-            '<path d="M11 9.5h7l4 4v9a1 1 0 0 1-1 1H11a1 1 0 0 1-1-1v-12a1 1 0 0 1 1-1z" fill="none" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/>'
-            '<path d="m13 17.6 2 2 4-4" fill="none" stroke="%s" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>') % (size, size, accent)
+    """Header logo: the same coloured tile as the favicon."""
+    return ('<svg width="%d" height="%d" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="%s"/>'
+            '<path d="M10.5 7.5h7.5l4.5 4.5v11.5a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1v-15a1 1 0 0 1 1-1z" fill="#fff"/>'
+            '<path d="m12.6 17.4 2.6 2.6 4.8-5" fill="none" stroke="%s" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>') % (size, size, accent, accent)
 
 
 def favicon(accent):
