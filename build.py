@@ -12,10 +12,11 @@ import sys
 
 from sites import SITES, PHONE, PHONE_TEL, UPDATED, UPDATED_ISO, ORG_ID, QUOTE_URL
 import icons
+import prices
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 FONTS = "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@400;500;600&display=swap"
-CSS_VER = "6"
+CSS_VER = "7"
 INDEXNOW_KEY = "cb48ff159a951fc036db20a5d5d446f6"
 
 
@@ -66,7 +67,8 @@ def hero(site, eyebrow, h1, lead, tick_items, float_title, float_sub, second=Non
       <div class="float-card"><div class="dot">%s</div><div><strong>%s</strong><span>%s</span></div></div>
     </div>
   </div>
-</section>""" % (eyebrow, h1, lead, quote_link(site), second, ticks(tick_items), img, img, esc(alt),
+</section>""" % (eyebrow, h1, lead, quote_link(site), second,
+                 ticks([prices.hero_tick(site) if t.startswith("Fixed price") else t for t in tick_items]), img, img, esc(alt),
                  icons.get("doc", 20), float_title, float_sub)
 
 
@@ -155,7 +157,7 @@ def header(site, path):
 <header class="top"><div class="wrap bar">
   %s
   <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
-  <nav class="nav" id="nav" aria-label="Main">%s<a class="btn btn-ink btn-sm" href="%s">Get a quote</a></nav>
+  <nav class="nav" id="nav" aria-label="Main">%s<a href="/pricing">Prices</a><a class="btn btn-ink btn-sm" href="%s">Get a quote</a></nav>
 </div></header>""" % (logo(site), links, quote_link(site))
 
 
@@ -181,6 +183,7 @@ def footer(site):
     <div><h4>Talk to us</h4><ul>
       <li><a href="tel:%s">%s</a></li>
       <li><a href="%s">Get a quote</a></li>
+      <li><a href="/pricing">Prices</a></li>
       <li>Perth and Western Australia</li></ul></div>
   </div>
   <p class="legal">We are a permit paperwork service. We prepare and lodge applications for you, working with registered building surveyors, draftspeople and engineers where a job needs them. We are not a council and we are not building surveyors. Rules differ between councils, so every job is checked against your council's own requirements.</p>
@@ -216,7 +219,8 @@ def jsonld(site, page):
         graph.append({"@type": "Organization", "@id": ORG_ID, "name": o["name"], "url": o["url"], "telephone": o["telephone"]})
         graph.append({"@type": "Service", "@id": "https://%s/#service" % site["domain"], "name": site["service"],
                       "serviceType": site["service"], "provider": {"@id": ORG_ID},
-                      "areaServed": {"@type": "State", "name": "Western Australia"}, "url": "https://%s/" % site["domain"]})
+                      "areaServed": {"@type": "State", "name": "Western Australia"}, "url": "https://%s/" % site["domain"],
+                      "offers": prices.offers(site)})
     wp = {"@type": "WebPage", "@id": u + "#page", "url": u, "name": page["title"], "description": page["desc"],
           "isPartOf": {"@id": site_id}, "dateModified": page_iso(page), "inLanguage": "en-AU",
           "primaryImageOfPage": {"@type": "ImageObject", "url": "https://%s/img/%s-1600.webp" % (site["domain"], page.get("img", site["image"]))}}
@@ -332,6 +336,7 @@ def article(site, page):
   <article class="prose">%s%s</article>
   <aside class="aside"><div class="aside-card">
     <h3>%s</h3><p>%s</p>
+    <p class="aside-price">%s <a href="/pricing">See prices</a></p>
     <a class="btn btn-accent" href="%s">Get a fixed-price quote</a>
     <a class="btn btn-line" href="tel:%s" style="margin-top:10px">Call %s</a>
     %s
@@ -341,7 +346,7 @@ def article(site, page):
 %s
 </main>""" % (parent_crumb(page), esc(page.get("crumb", page["h1"])), page["eyebrow"], page["h1"], page["answer"], dates_line(page),
              page["body"], sources_block(page),
-             site["aside_title"], site["aside_text"], quote_link(site, page.get("permit")), PHONE_TEL, PHONE,
+             site["aside_title"], site["aside_text"], prices.from_price(site), quote_link(site, page.get("permit")), PHONE_TEL, PHONE,
              '<ul class="aside-list">%s</ul>' % related if related else "",
              faqs, band(site, page.get("band_title", site["band_title"]), page.get("band_text", site["band_text"])))
 
@@ -351,6 +356,10 @@ def render(site, page):
         main = article(site, page)
     else:
         main = '<main id="main">%s</main>' % page["body"]
+    if not page.get("noprices") and page["path"] not in ("404.html", "thanks.html", "privacy.html", "quote.html"):
+        cut = main.rfind('<section class="band">')
+        cut = cut if cut > 0 else main.rfind("</main>")
+        main = main[:cut] + prices.section(site) + "\n" + main[cut:]
     return head(site, page) + header(site, page["path"]) + main + footer(site) + "\n</body>\n</html>\n"
 
 

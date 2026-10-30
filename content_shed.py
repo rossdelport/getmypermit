@@ -74,7 +74,7 @@ def home(S):
     body += b.prose_section("""
 <h2>What does a shed permit cost in WA?</h2>
 <p>There are two parts. The first is the <strong>council's fee and the state levies</strong>. These are set by the Building Regulations and are worked out from the value of the shed. For a typical backyard shed they usually come to a few hundred dollars, because minimum fees apply.</p>
-<p>The second is the cost of <strong>preparing the application</strong>: the site plan, drawings and forms. That is our fixed price, and it includes lodging and dealing with council until the permit is issued. If your job needs engineering or a private building surveyor, we include that in the quote too, so you see one total.</p>
+<p>The second is the cost of <strong>preparing the application</strong>: the site plan, drawings and forms. Our price for a shed is <strong>$990 in total, with the council fees included</strong>, or $1,190 for a garage. That covers lodging and dealing with council until the permit is issued. See <a href="/pricing">our prices</a>.</p>
 <h2>Building the shed before the permit</h2>
 <p>Don't. In WA it is an offence to build without a required permit, and fines can reach $50,000 for a first offence. Councils can also order changes or removal. If it is already up, see <a href="/retrospective-shed-approval">retrospective shed approval</a>.</p>
 """)

@@ -167,7 +167,7 @@ PATIO_FAQS = [
     ("Can my patio builder lodge the permit?",
      "Some do. Many leave it to the homeowner, or charge extra. We can handle it for you or work alongside your builder."),
     ("How much does a patio permit cost?",
-     "Council fees and levies are based on the value of the patio and usually come to a few hundred dollars. Preparing and lodging the application is our fixed price, quoted before you commit."),
+     "Our price is $990 in total for a patio or pergola, and $1,190 for a deck, with council fees included. Custom engineering is $450 extra, only if your kit doesn't come with it. See <a href=\"/pricing\">our prices</a>."),
 ]
 
 

@@ -2,6 +2,7 @@
 import build as b
 from sites import SITES, PHONE, PHONE_TEL, QUOTE_EMAIL
 import icons
+import prices
 
 Q = "/quote"
 
@@ -124,7 +125,7 @@ HOME_FAQS = [
     ("What does GetMyPermit actually do?",
      "We prepare and lodge building permit and council approval applications for you. That means the site plan and drawings, the application forms, owner consent, any engineering or surveyor certificates the job needs, lodging with your council and answering their questions until the permit is issued."),
     ("How much does it cost?",
-     "Every job gets a fixed price before you commit, so you know the total up front. The price depends on the project and on what your council needs. Council fees and levies are set by the WA Building Regulations and are a small percentage of the value of the work."),
+     "Our prices are on every page, and they include council fees. Sheds, patios and carports are $990, garages and decks $1,190, pools $1,500 and retaining walls $1,690. Granny flats start at $2,950 plus council fees. See <a href=\"/pricing\">all prices</a>."),
     ("How long does a building permit take in WA?",
      "Once an application is lodged, a council has up to 25 business days to decide a standard (uncertified) application, or 10 business days for a certified application that comes with a private building surveyor's certificate. Getting the plans and documents ready usually takes a few days to a week."),
     ("Do you cover my council?",
@@ -205,7 +206,7 @@ def quote(S):
     tiles = "".join(
         '<div class="tile"><input type="checkbox" id="p-%s" name="permit" value="%s" data-key="%s">'
         '<label for="p-%s"><span class="ti">%s</span><span><strong>%s</strong><small>%s</small></span></label></div>' % (
-            k, t, k, k, icons.get(ic, 20), t, d) for k, t, d, ic in TILES)
+            k, t, k, k, icons.get(ic, 20), t, d + ' &middot; <b>%s</b>' % prices.TILE_PRICE[k]) for k, t, d, ic in TILES)
     body = """
 <section class="page-hero"><div class="wrap narrow">
   <p class="eyebrow">Free, no-obligation quote</p>
@@ -352,7 +353,7 @@ RETRO_BODY = """
 <p>Sometimes the surveyor finds something that needs fixing first, such as missing tie-downs, undersized footings or a pool barrier with gaps. In that case you get a list of what to change. Once it is fixed, the certificate can be issued. In a small number of cases, usually serious planning problems, a council can require the structure to be changed or removed.</p>
 
 <h2>What does it cost?</h2>
-<p>The cost has three parts: our fixed fee for the paperwork and coordination, the building surveyor's fee for the inspection and certificate, and the council's fees and levies, which are based on the value of the work. We give you one fixed price that shows each part before you commit.</p>
+<p>It starts with a $495 site check. We inspect the structure and tell you exactly what is needed, and the $495 comes off your approval price. Approvals start from $1,950 plus council fees, which include the building surveyor's certificate. Councils charge more for retrospective work than for a normal permit, and we show you their fee before you pay.</p>
 
 <h2>Is it worth doing?</h2>
 <p>Usually, yes. Building without a permit is an offence in WA, with fines of up to $50,000 for a first offence. Getting approval does not cancel that offence, but councils generally prefer owners who come forward to fix things. An approved structure is also much easier to sell, insure and finance.</p>
@@ -391,7 +392,7 @@ BUILDER_FAQS = [
     ("Who does the customer deal with?",
      "Whatever suits you. We can deal with your customer directly and keep you updated, or work only through you."),
     ("How do you charge?",
-     "A fixed price per job, agreed up front, with partner rates for regular work. Ask us for the rate for your product range."),
+     "Our public prices with 10 to 15% off for regular work, invoiced monthly. Sheds, patios and carports are normally $990, so partners pay from about $840 a job. See <a href=\"/pricing\">all prices</a>."),
 ]
 
 

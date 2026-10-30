@@ -6,6 +6,7 @@ import sys
 
 import build
 import posts
+import prices
 from sites import SITES
 
 SKIP = ("index.html", "404.html", "quote.html", "thanks.html", "privacy.html", "about.html")
@@ -22,7 +23,7 @@ def assemble(key):
     if daily and cut > 0:
         home["body"] = home["body"][:cut] + posts.latest(site, daily) + "\n" + home["body"][cut:]
         home["updated"] = daily[0]["published"]
-    return pages + daily + [posts.hub(site, daily, core)]
+    return pages + daily + [posts.hub(site, daily, core), prices.page(site)]
 
 
 if __name__ == "__main__":
