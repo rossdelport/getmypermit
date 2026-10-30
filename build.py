@@ -15,7 +15,7 @@ import icons
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 FONTS = "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@400;500;600&display=swap"
-CSS_VER = "4"
+CSS_VER = "5"
 INDEXNOW_KEY = "cb48ff159a951fc036db20a5d5d446f6"
 
 
@@ -196,7 +196,7 @@ def org_node():
     return {
         "@type": ["Organization", "ProfessionalService"], "@id": ORG_ID, "name": "GetMyPermit",
         "url": "https://getmypermit.com.au/", "telephone": "+61 400 369 865",
-        "logo": "https://getmypermit.com.au/favicon.svg", "image": "https://getmypermit.com.au/og.jpg",
+        "logo": "https://getmypermit.com.au/favicon-192.png", "image": "https://getmypermit.com.au/og.jpg",
         "areaServed": {"@type": "State", "name": "Western Australia"},
         "address": {"@type": "PostalAddress", "addressRegion": "WA", "addressCountry": "AU"},
         "description": "Building permit and council approval paperwork for sheds, patios, pergolas, carports, granny flats, tiny homes and pools in Perth and Western Australia.",
@@ -258,7 +258,9 @@ def head(site, page):
 <link rel="canonical" href="%s">
 %s
 <meta name="theme-color" content="#fbfaf7">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="%s">
@@ -406,7 +408,10 @@ Sitemap: https://%s/sitemap.xml
         for size in ("1600", "800"):
             shutil.copy(os.path.join(HERE, "img", "%s-%s.webp" % (name, size)), img_dir)
     shutil.copy(os.path.join(HERE, "img", "og-%s.jpg" % site["image"]), os.path.join(out, "og.jpg"))
-    shutil.copy(os.path.join(HERE, "img", "touch-%s.png" % site["key"]), os.path.join(out, "apple-touch-icon.png"))
+    shutil.copy(os.path.join(HERE, "img", "fav-%s-180.png" % site["key"]), os.path.join(out, "apple-touch-icon.png"))
+    shutil.copy(os.path.join(HERE, "img", "fav-%s.ico" % site["key"]), os.path.join(out, "favicon.ico"))
+    for size in ("48", "96", "192"):
+        shutil.copy(os.path.join(HERE, "img", "fav-%s-%s.png" % (site["key"], size)), os.path.join(out, "favicon-%s.png" % size))
 
 
 if __name__ == "__main__":
