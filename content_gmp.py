@@ -1,5 +1,6 @@
 """getmypermit.com.au: the umbrella site, the quote form and the full checker."""
 import build as b
+import content_help
 from sites import SITES, PHONE, PHONE_TEL, QUOTE_EMAIL
 import icons
 import prices
@@ -132,6 +133,8 @@ HOME_FAQS = [
      "We work with councils across the Perth metro area and regional Western Australia. Each council has its own forms and local rules, and we check your project against them before lodging."),
     ("Can you help if I already built without a permit?",
      "Yes. Unapproved patios, sheds and carports are common, and they often surface when a house is sold. We arrange the inspection and certificate from a registered building surveyor and lodge a Building Approval Certificate application. See <a href=\"/retrospective-approval\">retrospective approval</a>."),
+    ("What if council asks for changes, or says no?",
+     "Answering council's questions is part of our price, and we keep going until your permit is issued. We check your project against the rules before lodging, so a refusal is rare. And if council does refuse and we can't get it approved, we refund everything you paid us, except council's own lodgement fee. See <a href=\"/how-it-works\">how it works</a>."),
     ("Are you building surveyors?",
      "No. We are a permit paperwork service. When a job needs a registered building surveyor, an engineer or a draftsperson, we bring them in and manage them for you, so you still deal with one contact."),
 ]
@@ -165,7 +168,7 @@ def home(S):
         ("Tell us about your project", "Pick your project type and answer a few questions. It takes about two minutes, and you can add photos or plans later."),
         ("Get a fixed price, then we prepare it", "We draw the site plan, complete the forms and bring in an engineer or building surveyor if your job needs one."),
         ("We lodge and follow up", "We lodge with your council, answer their questions and keep you posted until your permit is issued."),
-    ]))
+    ]) + '<p class="center" style="margin-top:28px"><a href="/how-it-works">See every step, who does what and how long it takes &rarr;</a></p>')
     body += b.section(b.stats([
         ("25 days", "The most a council can take to decide a standard (uncertified) building permit, in business days"),
         ("10 days", "For a certified application that comes with a private building surveyor's certificate"),
@@ -209,11 +212,16 @@ def quote(S):
             k, t, k, k, icons.get(ic, 20), t, d + ' &middot; <b>%s</b>' % prices.TILE_PRICE[k]) for k, t, d, ic in TILES)
     body = """
 <section class="page-hero"><div class="wrap narrow">
-  <p class="eyebrow">Free, no-obligation quote</p>
-  <h1>Get a fixed-price quote</h1>
-  <p class="lead">Tell us what you are building and where. We reply with a fixed price, usually within one business day, and tell you straight away if you don't need a permit at all.</p>
+  <p class="eyebrow">Free &middot; Takes 2 minutes &middot; No obligation</p>
+  <h1>Get your fixed price within one business day</h1>
+  <p class="lead">Answer a few quick questions about your project. We look up your council's rules and reply with one total price, usually by the next business day. If you don't need a permit at all, we tell you that instead, free.</p>
 </div></section>
 <section class="section" style="padding-top:48px"><div class="wrap qwrap">
+<div class="qside">
+  <div class="promise"><h3>One price, no surprises</h3><p>Your price includes the drawings, the forms, lodging and, for most projects, the council fees. You know the total before we start.</p></div>
+  <div class="promise"><h3>Approved, or your money back</h3><p>If council asks for changes, we handle them at no extra cost. If council refuses and we can't get it approved, we refund everything you paid us, except council's own lodgement fee.</p></div>
+  <div class="promise"><h3>What happens after you press send</h3><p>We read your details, check your council's rules and reply with your price, usually within one business day. Nothing is booked and nothing is charged until you say yes.</p></div>
+</div>
 <form id="quote-form" action="https://formsubmit.co/%s" method="POST">
   <input type="hidden" name="_subject" value="New quote request">
   <input type="hidden" name="_next" value="https://getmypermit.com.au/thanks">
@@ -253,8 +261,8 @@ def quote(S):
       <div class="field full"><label for="f-heard">How did you hear about us?</label><select id="f-heard" name="Heard about us"><option value="">Choose one</option><option>Google search</option><option>ChatGPT or another AI assistant</option><option>Google ad</option><option>Facebook or Instagram</option><option>My builder or supplier</option><option>Friend or family</option><option>Other</option></select></div>
     </div>
     <div class="form-foot">
-      <p>After you send this, reply to our email with photos, a sketch or plans if you have them. They help us quote accurately.</p>
-      <button class="btn btn-accent" type="submit">Send my quote request <span class="arr">&rarr;</span></button>
+      <p>Free and no obligation. We only use your details to quote, and we never sell them. Photos or plans help, so feel free to reply to our email with them.</p>
+      <button class="btn btn-accent" type="submit">Get my fixed price <span class="arr">&rarr;</span></button>
     </div>
   </div>
 </form>
@@ -262,7 +270,7 @@ def quote(S):
 </div></section>""" % (QUOTE_EMAIL, tiles, PHONE_TEL, PHONE)
     return {"path": "quote.html", "title": "Get a Fixed-Price Building Permit Quote | GetMyPermit",
             "desc": "Tell us what you are building in Perth or WA and get a fixed-price quote for your building permit or council approval, usually within one business day.",
-            "h1": "Get a fixed-price quote", "crumb": "Get a quote", "body": body}
+            "h1": "Get your fixed price within one business day", "crumb": "Get a quote", "body": body}
 
 
 def thanks(S):
@@ -525,4 +533,5 @@ def portfolio(S):
 
 
 def pages(S):
-    return [home(S), quote(S), thanks(S), checker_page(S), retro(S), builders(S), about(S), privacy(S), portfolio(S), notfound(S)]
+    return [home(S), quote(S), thanks(S), checker_page(S), retro(S), builders(S), about(S), privacy(S), portfolio(S), notfound(S),
+            content_help.how_it_works(S), content_help.jargon(S)]

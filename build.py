@@ -16,7 +16,7 @@ import prices
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 FONTS = "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@400;500;600&display=swap"
-CSS_VER = "7"
+CSS_VER = "8"
 INDEXNOW_KEY = "cb48ff159a951fc036db20a5d5d446f6"
 
 
@@ -54,9 +54,10 @@ def hero(site, eyebrow, h1, lead, tick_items, float_title, float_sub, second=Non
       <h1>%s</h1>
       <p class="lead">%s</p>
       <div class="cta-row">
-        <a class="btn btn-accent" href="%s">Get a fixed-price quote <span class="arr">&rarr;</span></a>
+        <a class="btn btn-accent" href="%s">Get my fixed price <span class="arr">&rarr;</span></a>
         %s
       </div>
+      <p class="micro">Free &middot; Takes 2 minutes &middot; No obligation &middot; Reply within 1 business day</p>
       %s
     </div>
     <div class="hero-media">
@@ -137,7 +138,8 @@ def band(site, title, text, second=None):
     return """
 <section class="band"><div class="wrap">
   <h2>%s</h2><p>%s</p>
-  <div class="cta-row"><a class="btn btn-accent" href="%s">Get a fixed-price quote <span class="arr">&rarr;</span></a>%s</div>
+  <div class="cta-row"><a class="btn btn-accent" href="%s">Get my fixed price <span class="arr">&rarr;</span></a>%s</div>
+  <p class="ps"><strong>P.S.</strong> Not sure you even need a permit? Ask anyway. If you don't, we'll tell you, and it costs nothing.</p>
 </div></section>""" % (title, text, quote_link(site), second)
 
 
@@ -157,7 +159,7 @@ def header(site, path):
 <header class="top"><div class="wrap bar">
   %s
   <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
-  <nav class="nav" id="nav" aria-label="Main">%s<a href="/pricing">Prices</a><a class="btn btn-ink btn-sm" href="%s">Get a quote</a></nav>
+  <nav class="nav" id="nav" aria-label="Main">%s<a href="/pricing">Prices</a><a class="btn btn-ink btn-sm" href="%s">Get my price</a></nav>
 </div></header>""" % (logo(site), links, quote_link(site))
 
 
@@ -172,6 +174,8 @@ def footer(site):
         col3 = """<h4>Part of GetMyPermit</h4><ul>
 <li><a href="https://getmypermit.com.au/">All permit types</a></li>
 <li><a href="https://getmypermit.com.au/do-i-need-approval">Do I need approval?</a></li>
+<li><a href="https://getmypermit.com.au/how-it-works">How it works</a></li>
+<li><a href="https://getmypermit.com.au/permit-jargon">Permit jargon buster</a></li>
 <li><a href="https://getmypermit.com.au/about">About us</a></li></ul>"""
         about = site["foot_about"]
     return """
@@ -189,7 +193,7 @@ def footer(site):
   <p class="legal">We are a permit paperwork service. We prepare and lodge applications for you, working with registered building surveyors, draftspeople and engineers where a job needs them. We are not a council and we are not building surveyors. Rules differ between councils, so every job is checked against your council's own requirements.</p>
   <div class="foot-bottom"><span>&copy; 2026 %s</span><span><a href="https://getmypermit.com.au/privacy">Privacy</a></span></div>
 </div></footer>
-<div class="mcta"><a class="btn btn-accent" href="%s">Get a quote</a><a class="btn btn-ink" href="tel:%s">Call</a></div>
+<div class="mcta"><a class="btn btn-accent" href="%s">Get my price</a><a class="btn btn-ink" href="tel:%s">Call</a></div>
 <script src="/assets/site.js?v=%s" defer></script>""" % (
         logo(site, "light"), about, col2, col3, PHONE_TEL, PHONE, quote_link(site), site["name"],
         quote_link(site), PHONE_TEL, CSS_VER)
@@ -241,6 +245,7 @@ def jsonld(site, page):
         graph.append({"@type": "FAQPage", "@id": u + "#faq", "mainEntity": [
             {"@type": "Question", "name": strip(q), "acceptedAnswer": {"@type": "Answer", "text": strip(a)}}
             for q, a in page["faqs"]]})
+    graph += page.get("ld", [])
     return json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False).replace("</", "<\\/")
 
 
@@ -337,7 +342,8 @@ def article(site, page):
   <aside class="aside"><div class="aside-card">
     <h3>%s</h3><p>%s</p>
     <p class="aside-price">%s <a href="/pricing">See prices</a></p>
-    <a class="btn btn-accent" href="%s">Get a fixed-price quote</a>
+    <a class="btn btn-accent" href="%s">Get my fixed price</a>
+    <p class="micro">Free, takes 2 minutes, no obligation. Approved, or your money back.</p>
     <a class="btn btn-line" href="tel:%s" style="margin-top:10px">Call %s</a>
     %s
   </div></aside>

@@ -23,10 +23,10 @@ TREE = {
             "cta": {"href": QL % "pergola", "text": "Ask us to double-check"}},
         "r_permit": {"result": True, "title": "You'll need a building permit",
             "body": "<p>Patios and roofed pergolas attached to the house, or bigger than 10 m², need a building permit. We prepare the site plan and forms, attach the engineering and lodge it with your council.</p>",
-            "cta": {"href": QL % "pergola", "text": "Get a fixed-price quote"}},
+            "cta": {"href": QL % "pergola", "text": "Get my fixed price"}},
         "r_both": {"result": True, "title": "You'll need a building permit, and maybe planning approval",
             "body": "<p>Close to a boundary or in a heritage area, a patio can also need planning approval, which comes before the building permit. Your neighbour may be asked for comments. We work out what your council needs and handle both.</p>",
-            "cta": {"href": QL % "pergola", "text": "Get a fixed-price quote"}},
+            "cta": {"href": QL % "pergola", "text": "Get my fixed price"}},
     },
 }
 

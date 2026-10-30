@@ -36,6 +36,11 @@ TILE_PRICE = {"shed": "$990", "garage": "$1,190", "carport": "$990", "pergola": 
               "granny-flat": "from $2,950", "tiny-home": "from $1,450", "pool": "$1,500", "retaining-wall": "$1,690",
               "retrospective": "from $495", "bal": "$595", "partner": "10 to 15% off"}
 
+# Ross's money-back promise (approved 30 Oct 2026). One wording, used everywhere.
+PROMISE_TITLE = "Approved, or your money back"
+PROMISE = ("If council refuses your application and we can't get it approved, we refund everything you paid us. "
+           "The only exception is council's own lodgement fee once it has been paid to council.")
+
 INCLUDED = ["Site plan and drawings", "Application forms and owner consent", "Lodging with your council",
             "Council fees and levies (unless a price says otherwise)", "Answering council's questions until your permit is issued"]
 EXTRA = ["Planning approval, if your council asks for it", "Custom engineering if your kit doesn't come with it (+$450)",
@@ -80,7 +85,7 @@ def page(site):
   <h1>Our prices, upfront</h1>
   <p class="lead">Most permit services won't tell you a price until you call, and then council fees are added on top. Our prices are the total, with council fees included, so you know the cost before you start.</p>
 </div></section>"""
-    body += b.section(cards(site) + lists(), "section", "prices")
+    body += b.section(cards(site) + lists() + '<div class="promise" style="margin-top:28px"><h3>%s</h3><p>%s</p></div>' % (PROMISE_TITLE, PROMISE), "section", "prices")
     body += b.band(site, site["band_title"], site["band_text"])
     return {"path": "pricing.html", "title": "Prices | %s" % site["name"],
             "desc": "Upfront, fixed prices for %s in Perth and WA, with council fees included. %s from %s." % (
