@@ -487,5 +487,41 @@ def notfound(S):
     return {"path": "404.html", "title": "Page not found", "desc": "Page not found.", "h1": "Page not found", "body": body, "noindex": True}
 
 
+PORTFOLIO = [
+    ("gmp", "GetMyPermit", "Our main site. One place to get a fixed-price quote for any building permit or council approval in WA."),
+    ("shed", "Shed Building Permit", "Permits for sheds, garages and workshops, plus free tools like the shed size checker."),
+    ("pergola", "Pergola Building Permit", "Approvals for pergolas, patios, verandahs and decks, with real council costs."),
+    ("carport", "Carport Permit", "Carport approvals, including carports in the front setback that need planning approval."),
+    ("granny", "Granny Flat Permit", "Granny flat approvals in WA, including the 70 m² rule that skips planning approval."),
+    ("tiny", "Tiny Home Permit", "Approvals for tiny homes on wheels and on footings, council by council."),
+]
+
+POOL_LOGO = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#0369a1"/>'
+             '<path d="M8 40c6 0 6-4 12-4s6 4 12 4 6-4 12-4 6 4 12 4M8 50c6 0 6-4 12-4s6 4 12 4 6-4 12-4 6 4 12 4" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/>'
+             '<path d="M20 26l8 8 16-18" stroke="#7dd3fc" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>')
+
+
+def portfolio(S):
+    cards = ""
+    rows = [(SITES[k]["domain"], SITES[k]["accent"], icons.favicon(SITES[k]["accent"]), n, t) for k, n, t in PORTFOLIO]
+    rows.append(("poolcouncilapproval.com.au", "#0369a1", POOL_LOGO, "Pool Council Approval",
+                 "Pool and spa approvals, barrier checks and done-for-you plunge pool packages in Perth."))
+    for domain, accent, logo, name, text in rows:
+        cards += ('<a class="card site-card" href="https://%s/" style="--c:%s"><div class="sc-top"></div><div class="sc-body">'
+                  '<div class="sc-logo">%s</div><h3>%s</h3><span class="domain">%s</span><p>%s</p>'
+                  '<span class="more">Visit site &rarr;</span></div></a>') % (domain, accent, logo, name, domain, text)
+    body = """
+<section class="page-hero"><div class="wrap narrow">
+  <p class="eyebrow">Our websites</p>
+  <h1>All our sites</h1>
+  <p class="lead">Each site covers one type of project in depth. They all lead to the same team and the same fixed-price quote.</p>
+</div></section>
+<section class="section" style="padding-top:48px"><div class="wrap"><div class="grid g3">%s</div></div></section>
+""" % cards
+    return {"path": "all.html", "title": "All Our Sites | GetMyPermit", "h1": "All our sites",
+            "desc": "Every site in the GetMyPermit family: sheds, pergolas and patios, carports, granny flats, tiny homes and pools in WA.",
+            "body": body}
+
+
 def pages(S):
-    return [home(S), quote(S), thanks(S), checker_page(S), retro(S), builders(S), about(S), privacy(S), notfound(S)]
+    return [home(S), quote(S), thanks(S), checker_page(S), retro(S), builders(S), about(S), privacy(S), portfolio(S), notfound(S)]

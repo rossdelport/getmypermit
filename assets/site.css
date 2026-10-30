@@ -307,3 +307,6 @@ fieldset.field { border: 0; padding: 0; margin: 0; }
 .prose .checker { margin: 8px 0 32px; }
 @media (max-width: 640px) { .tool { padding: 22px; } .tool .fields { grid-template-columns: 1fr; } }
 .checker .result .btn { white-space: normal; text-align: center; line-height: 1.3; }
+.site-card .sc-logo { width: 48px; height: 48px; margin-bottom: 14px; }
+.site-card .sc-logo svg { width: 48px; height: 48px; display: block; }
+.site-card .sc-logo + h3 { margin-bottom: 2px; }

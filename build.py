@@ -15,7 +15,7 @@ import icons
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 FONTS = "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@400;500;600&display=swap"
-CSS_VER = "5"
+CSS_VER = "6"
 INDEXNOW_KEY = "cb48ff159a951fc036db20a5d5d446f6"
 
 
