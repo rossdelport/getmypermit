@@ -9,7 +9,7 @@ BODY = """
 <li><strong>Size.</strong> No more than 70 m² of internal floor area.</li>
 <li><strong>Looks.</strong> Joondalup requires the flat to match the colour, roof pitch and materials of the main house. This matters more when it's visible from the street.</li>
 <li><strong>Open space, height and privacy.</strong> As for any building on the lot.</li>
-<li><strong>Parking.</strong> In Joondalup, single houses at R40 and below need one extra car bay for the flat, unless you're within 800 m walk of a train station or 250 m of a high-frequency bus route. The state says most granny flats don't need a bay.</li>
+<li><strong>Parking.</strong> The R-Codes ask for one extra car bay for the flat on most house lots (single houses R40 and below), unless you're within an 800 m walk of a train station or 250 m of a high-frequency bus stop.</li>
 </ul>
 <p>A front granny flat can also make it harder to fit the driveway, parking and front garden the rules expect, so plan these together.</p>
 
@@ -36,7 +36,7 @@ FAQS = [
     ("Can a granny flat go on the side street of a corner lot?",
      "Often that's easier, because secondary street setbacks are smaller, often 1.5 m to 2 m depending on the R-Code."),
     ("Does a front granny flat need extra parking?",
-     "Sometimes. Joondalup needs one extra bay for single houses at R40 and below, unless you're close to a train station or high-frequency bus route. The state says most don't need one."),
+     "Usually. The R-Codes ask for one extra bay on most house lots, unless you're close to a train station or high-frequency bus stop."),
 ]
 
 

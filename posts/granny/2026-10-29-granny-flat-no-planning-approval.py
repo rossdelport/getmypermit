@@ -11,7 +11,7 @@ BODY = """
 <li><strong>Keep enough open space.</strong> Every R-Code has a minimum share of the lot that must stay unroofed. The granny flat, house, patios and sheds all count. Small lots run out first.</li>
 <li><strong>Stay single storey and low.</strong> Keep within the standard wall and roof heights. Floors, decks or windows more than 0.5 m above the ground that look over a neighbour bring in privacy setbacks, so a low, single-storey design avoids them.</li>
 <li><strong>Give it its own access.</strong> A clear path from the street to the granny flat's front door is part of the standard rules.</li>
-<li><strong>Check parking.</strong> In most cases no extra parking bay is needed. Some higher-density areas, and places far from public transport, are the exception.</li>
+<li><strong>Check parking.</strong> On most house lots the R-Codes ask for one extra parking bay for the granny flat, unless you're within an 800 m walk of a train station or 250 m of a high-frequency bus stop. See <a href="/granny-flat-parking">granny flat parking</a>.</li>
 </ol>
 
 <h2>When you will need planning approval anyway</h2>
@@ -48,7 +48,7 @@ FAQS = [
     ("Can I rent out my granny flat?",
      "Yes. The state's info sheet says anyone can live in a granny flat, including a tenant you find yourself or through a real estate agent."),
     ("Does a granny flat need its own parking bay?",
-     "In most cases, no. Some higher-density areas and places far from public transport are the exception."),
+     "On most house lots, yes: the R-Codes ask for one extra bay, unless you're within an 800 m walk of a train station or 250 m of a high-frequency bus stop. Higher-density lots don't need one."),
 ]
 
 

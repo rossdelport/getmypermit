@@ -16,7 +16,7 @@ BODY = """
 <ul>
 <li><strong>A kitchen and bathroom.</strong> A granny flat is self-contained, so a separate kitchen and bathroom are generally expected. The guidelines say a laundry isn't essential for planning.</li>
 <li><strong>Setbacks, site cover, height and privacy.</strong> It must meet the deemed-to-comply rules for your lot, as well as the size limit.</li>
-<li><strong>Parking.</strong> In most cases no extra parking bay is needed, except in some densities and places far from public transport.</li>
+<li><strong>Parking.</strong> On most house lots, one extra parking bay is needed unless you're within an 800 m walk of a train station or 250 m of a high-frequency bus stop.</li>
 <li><strong>No separate title.</strong> A granny flat can't be subdivided off as its own lot.</li>
 </ul>
 
@@ -35,7 +35,7 @@ FAQS = [
     ("How is the 70 m² granny flat size measured?",
      "As internal floor area, measured from the finished inside surface of the walls."),
     ("Does a two-bedroom granny flat need extra parking?",
-     "In most cases no. A parking bay is only needed in some densities and in places where a car is more likely to be needed due to distance from public transport."),
+     "On most house lots, yes: one extra bay, unless you're close to a train station or high-frequency bus stop. Higher-density lots don't need one."),
     ("Does a two-bedroom granny flat need a building permit?",
      "Yes. Every granny flat needs a building permit and must meet the National Construction Code, even when planning approval isn't needed."),
 ]

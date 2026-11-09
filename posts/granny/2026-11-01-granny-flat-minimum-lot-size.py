@@ -21,7 +21,7 @@ BODY = """
 <p>On a small lot, open space and setbacks are usually what stop a granny flat, not a minimum lot size. If yours can't meet one of the rules, it isn't refused automatically; it just needs <strong>planning approval</strong>, where council assesses it on its merits.</p>
 
 <h2>Parking</h2>
-<p>In most cases a granny flat doesn't need its own parking bay. The exception is some densities and locations far from public transport, where a car is more likely to be needed.</p>
+<p>On most house lots the R-Codes ask for one extra parking bay for a granny flat, unless you're within an 800 m walk of a train station or 250 m of a high-frequency bus stop. Higher-density lots don't need one. See <a href="/granny-flat-parking">granny flat parking</a>.</p>
 
 <h2>A building permit is always needed</h2>
 <p>Skipping planning approval doesn't mean skipping the building permit. Every granny flat needs one and must meet the National Construction Code.</p>
@@ -35,7 +35,7 @@ FAQS = [
     ("Can I build a granny flat on a strata lot?",
      "Since 2024 the R-Codes allow granny flats on grouped dwelling and strata lots at all density codes in Volume 1, subject to the same deemed-to-comply rules."),
     ("Does a granny flat need its own parking bay in WA?",
-     "Usually not. A parking bay is only required at some densities and in locations far from public transport."),
+     "On most house lots, yes: one extra bay, unless you're close to a train station or high-frequency bus stop. Higher-density lots don't need one."),
 ]
 
 
