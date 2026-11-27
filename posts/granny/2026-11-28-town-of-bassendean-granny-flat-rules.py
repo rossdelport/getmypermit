@@ -20,7 +20,7 @@ BODY = """
 <li>An owner-builder certificate, or the builder's home indemnity insurance certificate, if the work is over $20,000.</li>
 <li>Plans, such as site, floor, elevation and section drawings, plus structural details, energy efficiency details, termite treatment and a BAL assessment if needed.</li>
 <li>Neighbour consent forms (BA20 or BA20A) if you'll remove a shared fence, go onto their land, encroach, or dig near the boundary.</li>
-<li>A Construction Training Fund levy receipt if the work is over $20,000.</li>
+<li>A Construction Training Fund levy receipt, if your job needs one.</li>
 </ul>
 <p>The Town prefers applications by email to mail@bassendean.wa.gov.au. If the job needs a new crossover, use of the verge or a drainage connection, lodge the Town's infrastructure permit form too. Check your size with the <a href="/granny-flat-size-calculator">granny flat size calculator</a>.</p>
 """
